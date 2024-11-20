@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Home from './Home.jsx'
-import ItemDetailPage from "./ItemDetailPage.jsx";
+import Home from './components/Home.jsx'
+import ItemDetailPage from "./components/ItemDetailPage.jsx";
+import InputCreate from "./components/InputCreate.jsx";
 
 
 const App = () => {
@@ -27,6 +28,7 @@ useEffect(() => {
       <div>
         <nav>
           <Link to="/">Inicio</Link>
+          <Link to="/create">Añadir tarea</Link>
      
         </nav>
         {data === null 
@@ -34,11 +36,11 @@ useEffect(() => {
         : 
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-           
             {data.map(item => (
               <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />
-            ))
-            }
+            ))}
+
+            <Route path="/create" element={<InputCreate urlApi={urlApi} />} />
           </Routes>
         }
         
